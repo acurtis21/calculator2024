@@ -1,12 +1,13 @@
 import {
   Table,
-  TableCaption,
+  // TableCaption,
   TableTbody,
   TableTd,
   TableTh,
   TableThead,
   TableTr,
   NumberFormatter,
+  Title,
 } from '@mantine/core';
 import { tableRow } from '../utilities/generateTableData';
 
@@ -55,35 +56,43 @@ export const TableRows = ({
     </TableTr>
   ));
   return (
-    <Table
-      stickyHeader
-      stickyHeaderOffset={60}
-      striped
-      highlightOnHover
-      withColumnBorders
-      withRowBorders={false}
-    >
-      <TableThead>
-        <TableTr>
-          <TableTh>
-            {interval === 'Daily'
-              ? 'Day'
-              : interval === 'Weekly'
-              ? 'Week'
-              : interval === 'Monthly'
-              ? 'Month'
-              : 'Year'}
-          </TableTh>
-          <TableTh>Date</TableTh>
-          <TableTh>Earnings</TableTh>
-          <TableTh>Re-Invest Rate</TableTh>
-          <TableTh>Principal</TableTh>
-          <TableTh>Cash Out</TableTh>
-          <TableTh>Total Principal</TableTh>
-        </TableTr>
-      </TableThead>
-      <TableTbody>{rows}</TableTbody>
-      <TableCaption>Scroll page to see sticky thead</TableCaption>
-    </Table>
+    <div style={{ padding: '0 3em 0 3em' }}>
+      <Title
+        order={2}
+        mb={'lg'}
+      >
+        Detailed Results
+      </Title>
+      <Table
+        stickyHeader
+        stickyHeaderOffset={60}
+        // striped
+        // highlightOnHover
+        // withColumnBorders
+        withRowBorders
+      >
+        <TableThead>
+          <TableTr>
+            <TableTh>
+              {interval === 'Daily'
+                ? 'Day'
+                : interval === 'Weekly'
+                ? 'Week'
+                : interval === 'Monthly'
+                ? 'Month'
+                : 'Year'}
+            </TableTh>
+            <TableTh>Date</TableTh>
+            <TableTh>Earnings</TableTh>
+            <TableTh>Re-Invest Rate</TableTh>
+            <TableTh>Principal</TableTh>
+            <TableTh>Cash Out</TableTh>
+            <TableTh>Total Principal</TableTh>
+          </TableTr>
+        </TableThead>
+        <TableTbody>{rows}</TableTbody>
+        {/* <TableCaption>Scroll page to see sticky thead</TableCaption> */}
+      </Table>
+    </div>
   );
 };

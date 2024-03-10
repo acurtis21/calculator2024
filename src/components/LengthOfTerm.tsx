@@ -25,6 +25,8 @@ export const LengthOfTerm = ({
       </Text>
       <NumberInput
         placeholder='12'
+        min={12}
+        max={365}
         value={lengthOfTerm}
         onChange={(value) =>
           typeof value === 'number'

@@ -11,6 +11,7 @@ export const InvestmentAmount = ({
   return (
     <>
       <NumberInput
+        min={100}
         defaultValue={investmentAmount}
         value={investmentAmount}
         onChange={(value) =>

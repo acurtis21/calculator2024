@@ -16,7 +16,7 @@ export const ResetButton = () => {
         >
           <RefreshIcon
             // size={'xl'}
-            style={{ color: 'gray', width: '24px', height: '24px' }}
+            style={{ color: '#212529', width: '24px', height: '24px' }}
           />
         </ActionIcon>
       </Tooltip>

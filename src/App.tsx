@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { tableRow, generateTableData } from './utilities/generateTableData';
 import { TableRows } from './components/Table';
 import { generateChartData, chartData } from './utilities/generateChartData';
-import { SummaryOfResults } from './components/SummaryOfResults';
+import { SummaryData, SummaryOfResults } from './components/SummaryOfResults';
 import { SummaryChart } from './components/SummaryChart';
 
 function App() {
@@ -34,6 +34,7 @@ function App() {
       : '';
   const [tableData, setTableData] = useState<tableRow[]>([]);
   const [chartData, setChartData] = useState<chartData[]>([]);
+  const [summaryData, setSummaryData] = useState<SummaryData | null>(null);
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const tableBodyData = generateTableData(
@@ -48,6 +49,45 @@ function App() {
 
     const chartBodyData = generateChartData(lengthOfTerm, tableBodyData);
     setChartData(chartBodyData);
+
+    const lastRow = tableBodyData.length - 1;
+
+    const summaryInitialInvestment = investmentAmount;
+    const summaryPrincipalGrowth = tableBodyData[lastRow].totalPrincipal;
+    const summaryPrincipalGrowthPercentage =
+      ((summaryPrincipalGrowth - summaryInitialInvestment) /
+        summaryInitialInvestment) *
+      100;
+    const summaryTotalCashOut = tableBodyData.reduce(
+      (accumulator, current) => accumulator + current.cashOut,
+      0
+    );
+    const summaryNetProfit = summaryPrincipalGrowth - summaryInitialInvestment;
+    const summaryNetProfitPercentage =
+      ((summaryNetProfit - summaryInitialInvestment) /
+        summaryInitialInvestment) *
+      100;
+
+    const summaryInitialInvestmentDate = tableBodyData[0].date;
+    const summaryPrincipalGrowthDate = tableBodyData[lastRow].date;
+    const summaryTotalInterval = lengthOfTerm;
+    const summaryInterval = interval;
+
+    const summaryOfResults = {
+      summaryInitialInvestment,
+      summaryPrincipalGrowth,
+      summaryPrincipalGrowthPercentage,
+      summaryTotalCashOut,
+      summaryNetProfit,
+      summaryNetProfitPercentage,
+      summaryDetails: {
+        summaryInitialInvestmentDate,
+        summaryPrincipalGrowthDate,
+        summaryTotalInterval,
+        summaryInterval,
+      },
+    };
+    setSummaryData(summaryOfResults);
   };
 
   const formProps = {
@@ -97,9 +137,11 @@ function App() {
         </AppShell.Navbar>
         <AppShell.Main>
           <Grid gutter='xl'>
-            <Grid.Col span={12}>
-              <SummaryOfResults />
-            </Grid.Col>
+            {summaryData && tableData && (
+              <Grid.Col span={12}>
+                <SummaryOfResults summaryData={summaryData} />
+              </Grid.Col>
+            )}
             {false && (
               <Grid.Col span={6}>
                 <SummaryChart chartData={chartData} />
@@ -107,10 +149,12 @@ function App() {
             )}
           </Grid>
 
-          <TableRows
-            tableData={tableData}
-            interval={interval}
-          />
+          {summaryData && tableData && (
+            <TableRows
+              tableData={tableData}
+              interval={interval}
+            />
+          )}
         </AppShell.Main>
       </AppShell>
     </MantineProvider>
