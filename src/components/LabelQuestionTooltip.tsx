@@ -1,5 +1,5 @@
 import { Tooltip } from '@mantine/core';
-import styles from './LabelQuestionTooltip.module.css';
+import styles from '../styles/LabelQuestionTooltip.module.css';
 
 export const LabelQuestionTooltip = ({
   label,

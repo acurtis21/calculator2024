@@ -1,6 +1,6 @@
 import { MultiSelect, Text } from '@mantine/core';
 import { LabelQuestionTooltip } from './LabelQuestionTooltip';
-// import styles from './PreferredTradingDays.module.css';
+// import styles from '../styles/PreferredTradingDays.module.css';
 
 export const PreferredTradingDays = ({
   preferredTradingDays,

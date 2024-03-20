@@ -1,5 +1,12 @@
 import '@mantine/core/styles.css';
-import { AppShell, Burger, Grid, Group, MantineProvider } from '@mantine/core';
+import {
+  AppShell,
+  Burger,
+  Grid,
+  Group,
+  MantineProvider,
+  Title,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Form } from './components/Form';
 import { useState } from 'react';
@@ -37,6 +44,7 @@ function App() {
   const [summaryData, setSummaryData] = useState<SummaryData | null>(null);
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     const tableBodyData = generateTableData(
       investmentAmount,
       reInvestRate,
@@ -50,41 +58,34 @@ function App() {
     const chartBodyData = generateChartData(lengthOfTerm, tableBodyData);
     setChartData(chartBodyData);
 
-    const lastRow = tableBodyData.length - 1;
-
-    const summaryInitialInvestment = investmentAmount;
-    const summaryPrincipalGrowth = tableBodyData[lastRow].totalPrincipal;
-    const summaryPrincipalGrowthPercentage =
-      ((summaryPrincipalGrowth - summaryInitialInvestment) /
-        summaryInitialInvestment) *
-      100;
-    const summaryTotalCashOut = tableBodyData.reduce(
-      (accumulator, current) => accumulator + current.cashOut,
-      0
-    );
-    const summaryNetProfit = summaryPrincipalGrowth - summaryInitialInvestment;
-    const summaryNetProfitPercentage =
-      ((summaryNetProfit - summaryInitialInvestment) /
-        summaryInitialInvestment) *
-      100;
-
-    const summaryInitialInvestmentDate = tableBodyData[0].date;
-    const summaryPrincipalGrowthDate = tableBodyData[lastRow].date;
-    const summaryTotalInterval = lengthOfTerm;
-    const summaryInterval = interval;
-
     const summaryOfResults = {
-      summaryInitialInvestment,
-      summaryPrincipalGrowth,
-      summaryPrincipalGrowthPercentage,
-      summaryTotalCashOut,
-      summaryNetProfit,
-      summaryNetProfitPercentage,
+      summaryInitialInvestment: investmentAmount,
+      summaryPrincipalGrowth:
+        tableBodyData[tableBodyData.length - 1].totalPrincipal,
+      summaryPrincipalGrowthPercentage:
+        ((tableBodyData[tableBodyData.length - 1].totalPrincipal -
+          investmentAmount) /
+          investmentAmount) *
+        100,
+      summaryTotalCashOut: tableBodyData.reduce(
+        (accumulator, current) => accumulator + current.cashOut,
+        0
+      ),
+      summaryNetProfit:
+        tableBodyData[tableBodyData.length - 1].totalPrincipal -
+        investmentAmount,
+      summaryNetProfitPercentage:
+        ((investmentAmount -
+          (tableBodyData[tableBodyData.length - 1].totalPrincipal -
+            investmentAmount)) /
+          investmentAmount) *
+        100,
       summaryDetails: {
-        summaryInitialInvestmentDate,
-        summaryPrincipalGrowthDate,
-        summaryTotalInterval,
-        summaryInterval,
+        summaryInitialInvestmentDate: tableBodyData[0].date,
+        summaryPrincipalGrowthDate:
+          tableBodyData[tableBodyData.length - 1].date,
+        summaryTotalInterval: lengthOfTerm,
+        summaryInterval: interval,
       },
     };
     setSummaryData(summaryOfResults);
@@ -136,6 +137,13 @@ function App() {
           <Form {...formProps} />
         </AppShell.Navbar>
         <AppShell.Main>
+          <Title
+            ml={'xl'}
+            mr={'xl'}
+            order={1}
+          >
+            Compound Interest Calculator
+          </Title>
           <Grid gutter='xl'>
             {summaryData && tableData && (
               <Grid.Col span={12}>

@@ -14,14 +14,14 @@ import {
   IconPigMoney,
   IconMoneybag,
 } from '@tabler/icons-react';
-import classes from './SummaryOfResults.module.css';
+import classes from '../styles/SummaryOfResults.module.css';
 
 const icons = {
-  netprofit: IconMoneybag,
+  net_profit: IconMoneybag,
   discount: IconDiscount2,
   receipt: IconReceipt2,
   coin: IconCoin,
-  piggybank: IconPigMoney,
+  piggy_bank: IconPigMoney,
 };
 export interface SummaryDetails {
   summaryInitialInvestmentDate: string;
@@ -54,7 +54,7 @@ export function SummaryOfResults({
   )}`;
   const summaryTotalCashOut = `${summaryData.summaryTotalCashOut.toFixed(2)}`;
   const summaryNetProfit = `${summaryData.summaryNetProfit.toFixed(2)}`;
-  const summaryNetProfitPercentage = `${summaryData.summaryPrincipalGrowthPercentage.toFixed(
+  const summaryNetProfitPercentage = `${summaryData.summaryNetProfitPercentage.toFixed(
     2
   )}`;
 
@@ -80,6 +80,7 @@ export function SummaryOfResults({
       value: summaryInitialInvestment,
       diff: 0,
       detail: `On ${summaryInitialInvestmentDate}`,
+      delay: 0,
     },
     {
       title: 'Principal Growth',
@@ -87,31 +88,34 @@ export function SummaryOfResults({
       value: summaryPrincipalGrowth,
       diff: summaryPrincipalGrowthPercentage,
       detail: `By ${summaryPrincipalGrowthDate}`,
+      delay: 250,
     },
     {
       title: 'Cash Withdrawals',
-      icon: 'piggybank',
+      icon: 'piggy_bank',
       value: summaryTotalCashOut,
       diff: 0,
       detail: `Over the course of ${summaryTotalInterval} ${summaryInterValDetail}s`,
+      delay: 500,
     },
     {
       title: 'Net Profit',
-      icon: 'netprofit',
+      icon: 'net_profit',
       value: summaryNetProfit,
       diff: summaryNetProfitPercentage,
       detail: `Over a ${summaryTotalInterval}-${summaryInterValDetail} period`,
+      delay: 750,
     },
   ] as const;
 
   const stats = data.map((stat) => {
     const Icon = icons[stat.icon];
     const DiffIcon = IconArrowUpRight;
-
     return (
       <Paper
         withBorder
-        p='md'
+        shadow='md'
+        p='lg'
         radius='md'
         key={stat.title}
       >
@@ -174,14 +178,16 @@ export function SummaryOfResults({
     );
   });
   return (
-    <div className={classes.root}>
-      <Title
-        order={2}
-        mb={'lg'}
-      >
-        Summary of Results
-      </Title>
-      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}</SimpleGrid>
-    </div>
+    <section id='summary-of-results'>
+      <Paper m={'xl'}>
+        <Title
+          order={2}
+          mb={'lg'}
+        >
+          Summary of Results
+        </Title>
+        <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}</SimpleGrid>
+      </Paper>
+    </section>
   );
 }
