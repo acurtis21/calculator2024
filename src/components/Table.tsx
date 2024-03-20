@@ -58,16 +58,27 @@ export const TableRows = ({
   ));
   return (
     <section id='detailed-results'>
-      <Paper
+      {/* <Paper
         ml={'xl'}
         mr={'xl'}
+      > */}
+      <Title
+        order={2}
+        ml={'xl'}
+        mr={'xl'}
+        mb={'lg'}
       >
-        <Title
-          order={2}
-          mb={'lg'}
-        >
-          Detailed Results
-        </Title>
+        Detailed Results
+      </Title>
+      <Paper
+        withBorder
+        shadow='md'
+        p='lg'
+        ml={'xl'}
+        mr={'xl'}
+        mb={'lg'}
+        radius='md'
+      >
         <Table
           stickyHeader
           stickyHeaderOffset={60}

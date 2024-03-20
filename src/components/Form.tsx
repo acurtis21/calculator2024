@@ -1,4 +1,4 @@
-import { Box, Grid, Title } from '@mantine/core';
+import { Box, Grid, Text, Title } from '@mantine/core';
 import { InvestmentInterval } from './InvestmentInterval';
 import { InvestmentAmount } from './InvestmentAmount';
 import { InterestRate } from './InterestRate';
@@ -8,6 +8,8 @@ import { PreferredTradingDays } from './PreferredTradingDays';
 import { FormButtonGrid } from './FormButtonGrid';
 import { SubmitButton } from './SubmitButton';
 import { ResetButton } from './ResetButton';
+
+const captionStyles = { color: '#777' };
 
 export const Form = ({
   interval,
@@ -87,6 +89,25 @@ export const Form = ({
             </Grid.Col>
           </FormButtonGrid>
         </form>
+        <Text
+          mb={'lg'}
+          mt={'lg'}
+          size='sm'
+          style={captionStyles}
+        >
+          <small>
+            * This calculator is not a financial advisor and is not intended to
+            be used as such.
+          </small>
+        </Text>
+        <Text
+          size='sm'
+          style={captionStyles}
+        >
+          <small>
+            &copy; Copyright {new Date().getFullYear()} by Alexander Curtis
+          </small>
+        </Text>
       </Box>
     </div>
   );
