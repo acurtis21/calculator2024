@@ -5,6 +5,7 @@ import {
   Grid,
   Group,
   MantineProvider,
+  Paper,
   Title,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -15,6 +16,7 @@ import { TableRows } from './components/Table';
 import { generateChartData, chartData } from './utilities/generateChartData';
 import { SummaryData, SummaryOfResults } from './components/SummaryOfResults';
 import { SummaryChart } from './components/SummaryChart';
+import { IconForms } from '@tabler/icons-react';
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -42,6 +44,8 @@ function App() {
   const [tableData, setTableData] = useState<tableRow[]>([]);
   const [chartData, setChartData] = useState<chartData[]>([]);
   const [summaryData, setSummaryData] = useState<SummaryData | null>(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -89,6 +93,7 @@ function App() {
       },
     };
     setSummaryData(summaryOfResults);
+    setFormSubmitted(true);
   };
 
   const formProps = {
@@ -106,6 +111,7 @@ function App() {
     preferredTradingDays,
     setPreferredTradingDays,
     handleFormSubmit,
+    setFormSubmitted,
   };
 
   return (
@@ -130,7 +136,7 @@ function App() {
               hiddenFrom='sm'
               size='sm'
             />
-            {/* <MantineLogo size={30} /> */}
+            <IconForms style={{ marginLeft: '10px' }} />
           </Group>
         </AppShell.Header>
         <AppShell.Navbar p='md'>
@@ -145,7 +151,22 @@ function App() {
             Compound Interest Calculator
           </Title>
           <Grid gutter='xl'>
-            {summaryData && tableData && (
+            {!formSubmitted && (
+              <Grid.Col span={12}>
+                <section>
+                  <Paper
+                    shadow='md'
+                    withBorder
+                    radius='md'
+                    m={'xl'}
+                    p={'lg'}
+                  >
+                    <p>Submit form to see results</p>
+                  </Paper>
+                </section>
+              </Grid.Col>
+            )}
+            {formSubmitted && summaryData && (
               <Grid.Col span={12}>
                 <SummaryOfResults summaryData={summaryData} />
               </Grid.Col>
@@ -157,7 +178,7 @@ function App() {
             )}
           </Grid>
 
-          {summaryData && tableData && (
+          {formSubmitted && tableData && (
             <TableRows
               tableData={tableData}
               interval={interval}

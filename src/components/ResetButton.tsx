@@ -1,7 +1,11 @@
 import { ActionIcon, Tooltip } from '@mantine/core';
 import { RefreshIcon } from '../assets/RefreshIcon';
 
-export const ResetButton = () => {
+export const ResetButton = ({
+  setFormSubmitted,
+}: {
+  setFormSubmitted: (formSubmitted: boolean) => void;
+}) => {
   return (
     <>
       <Tooltip
@@ -13,6 +17,9 @@ export const ResetButton = () => {
           variant='default'
           size={'xl'}
           style={{ width: '100%', height: '100%' }}
+          onClick={() => {
+            setFormSubmitted(false);
+          }}
         >
           <RefreshIcon
             // size={'xl'}

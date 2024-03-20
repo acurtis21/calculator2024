@@ -1,5 +1,6 @@
 import { Tooltip } from '@mantine/core';
 import styles from '../styles/LabelQuestionTooltip.module.css';
+import { IconInfoSquareRounded } from '@tabler/icons-react';
 
 export const LabelQuestionTooltip = ({
   label,
@@ -14,20 +15,6 @@ export const LabelQuestionTooltip = ({
     display: 'inline-block',
     marginBottom: '5px',
   };
-  const questionToolTipStyles: React.CSSProperties = {
-    display: 'inline-block',
-    color: 'white',
-    padding: '0px',
-    borderRadius: '50%',
-    backgroundColor: '#212529',
-    width: '17px',
-    height: '17px',
-    textAlign: 'center',
-    alignContent: 'center',
-    fontSize: '85%',
-    cursor: 'pointer',
-    marginLeft: '5px',
-  };
 
   return (
     <span style={labelStyles}>
@@ -39,7 +26,10 @@ export const LabelQuestionTooltip = ({
         multiline
         w={220}
       >
-        <span style={questionToolTipStyles}>?</span>
+        <IconInfoSquareRounded
+          size='1.25em'
+          style={{ marginLeft: '5px' }}
+        />
       </Tooltip>
     </span>
   );

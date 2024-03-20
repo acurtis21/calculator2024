@@ -1,4 +1,4 @@
-import { Box, Title } from '@mantine/core';
+import { Box, Grid, Title } from '@mantine/core';
 import { InvestmentInterval } from './InvestmentInterval';
 import { InvestmentAmount } from './InvestmentAmount';
 import { InterestRate } from './InterestRate';
@@ -6,6 +6,8 @@ import { LengthOfTerm } from './LengthOfTerm';
 import { ReInvestRate } from './ReInvestRate';
 import { PreferredTradingDays } from './PreferredTradingDays';
 import { FormButtonGrid } from './FormButtonGrid';
+import { SubmitButton } from './SubmitButton';
+import { ResetButton } from './ResetButton';
 
 export const Form = ({
   interval,
@@ -22,6 +24,7 @@ export const Form = ({
   preferredTradingDays,
   setPreferredTradingDays,
   handleFormSubmit,
+  setFormSubmitted,
 }: {
   interval: string;
   setInterval: (interval: string) => void;
@@ -37,6 +40,7 @@ export const Form = ({
   preferredTradingDays: string[];
   setPreferredTradingDays: (preferredTradingDays: string[]) => void;
   handleFormSubmit: (e: React.FormEvent) => void;
+  setFormSubmitted: (formSubmitted: boolean) => void;
 }) => {
   return (
     <div>
@@ -74,7 +78,14 @@ export const Form = ({
               setPreferredTradingDays={setPreferredTradingDays}
             />
           )}
-          <FormButtonGrid />
+          <FormButtonGrid>
+            <Grid.Col span={9}>
+              <SubmitButton />
+            </Grid.Col>
+            <Grid.Col span={3}>
+              <ResetButton setFormSubmitted={setFormSubmitted} />
+            </Grid.Col>
+          </FormButtonGrid>
         </form>
       </Box>
     </div>
