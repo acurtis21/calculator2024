@@ -14,7 +14,7 @@ export const LengthOfTerm = ({
     <>
       <Text
         size='sm'
-        mt='xl'
+        mt='lg'
         fw={500}
       >
         <LabelQuestionTooltip

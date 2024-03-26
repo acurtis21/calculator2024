@@ -4,9 +4,11 @@ export interface tableRow {
   day: number;
   date: string;
   earnings: number;
+  interestRate: number;
   reInvestRate: number;
   principal: number;
   cashOut: number;
+  totalCashOut: number;
   totalPrincipal: number;
   interval: string;
 }
@@ -60,19 +62,24 @@ export const generateTableData = (
       i === 0
         ? initialInvestmentAmount + principal
         : principal + previousTotalPrincipal;
+    const totalCashOut: number =
+      i === 0 ? cashOut : tableBodyData[i - 1].totalCashOut + cashOut;
 
     const currentIntervalData: tableRow = {
       day,
       date,
       earnings,
       reInvestRate,
+      interestRate: interestRate,
       principal,
       cashOut,
+      totalCashOut,
       totalPrincipal,
       interval,
     };
     tableBodyData.push(currentIntervalData);
   }
 
+  // console.log(tableBodyData);
   return tableBodyData;
 };

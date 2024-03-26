@@ -20,7 +20,8 @@ export const TableRows = ({
   interval: string;
 }) => {
   const elements = tableData;
-
+  const noCashOut = tableData[0].reInvestRate === 100 ? true : false;
+  console.log(tableData[0].reInvestRate === 100);
   const rows = elements.map((element: tableRow) => (
     <TableTr key={element.day}>
       <TableTd>{element.day}</TableTd>
@@ -33,6 +34,7 @@ export const TableRows = ({
         />
       </TableTd>
       <TableTd>{element.reInvestRate}%</TableTd>
+      <TableTd>{element.interestRate}%</TableTd>
       <TableTd>
         <NumberFormatter
           prefix='$ '
@@ -43,17 +45,28 @@ export const TableRows = ({
       <TableTd>
         <NumberFormatter
           prefix='$ '
-          value={element.cashOut.toFixed(2)}
-          thousandSeparator
-        />
-      </TableTd>
-      <TableTd>
-        <NumberFormatter
-          prefix='$ '
           value={element.totalPrincipal.toFixed(2)}
           thousandSeparator
         />
       </TableTd>
+      {!noCashOut && (
+        <>
+          <TableTd>
+            <NumberFormatter
+              prefix='$ '
+              value={element.cashOut.toFixed(2)}
+              thousandSeparator
+            />
+          </TableTd>
+          <TableTd>
+            <NumberFormatter
+              prefix='$ '
+              value={element.totalCashOut.toFixed(2)}
+              thousandSeparator
+            />
+          </TableTd>
+        </>
+      )}
     </TableTr>
   ));
   return (
@@ -101,9 +114,15 @@ export const TableRows = ({
               <TableTh>Date</TableTh>
               <TableTh>Earnings</TableTh>
               <TableTh>Re-Invest Rate</TableTh>
+              <TableTh>Interest Rate</TableTh>
               <TableTh>Principal</TableTh>
-              <TableTh>Cash Out</TableTh>
               <TableTh>Total Principal</TableTh>
+              {!noCashOut && (
+                <>
+                  <TableTh>Cash Out</TableTh>
+                  <TableTh>Total Cash Out</TableTh>
+                </>
+              )}
             </TableTr>
           </TableThead>
           <TableTbody>{rows}</TableTbody>

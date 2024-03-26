@@ -58,7 +58,7 @@ function App() {
     );
 
     setTableData(tableBodyData);
-
+    console.log(tableBodyData);
     const chartBodyData = generateChartData(lengthOfTerm, tableBodyData);
     setChartData(chartBodyData);
 
@@ -79,9 +79,8 @@ function App() {
         tableBodyData[tableBodyData.length - 1].totalPrincipal -
         investmentAmount,
       summaryNetProfitPercentage:
-        ((investmentAmount -
-          (tableBodyData[tableBodyData.length - 1].totalPrincipal -
-            investmentAmount)) /
+        ((tableBodyData[tableBodyData.length - 1].totalPrincipal -
+          investmentAmount) /
           investmentAmount) *
         100,
       summaryDetails: {

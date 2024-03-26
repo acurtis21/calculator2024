@@ -8,6 +8,7 @@ import { PreferredTradingDays } from './PreferredTradingDays';
 import { FormButtonGrid } from './FormButtonGrid';
 import { SubmitButton } from './SubmitButton';
 import { ResetButton } from './ResetButton';
+import { useState } from 'react';
 
 const captionStyles = { color: '#777' };
 
@@ -44,6 +45,8 @@ export const Form = ({
   handleFormSubmit: (e: React.FormEvent) => void;
   setFormSubmitted: (formSubmitted: boolean) => void;
 }) => {
+  const [interestTypeValue, setInterestTypeValue] = useState('fixed');
+  const [reInvestTypeValue, setreInvestTypeValue] = useState('fixed');
   return (
     <div>
       <Box p={'sm'}>
@@ -69,17 +72,23 @@ export const Form = ({
             interval={interval}
             interestRate={interestRate}
             setInterestRate={setInterestRate}
+            interestTypeValue={interestTypeValue}
+            setInterestTypeValue={setInterestTypeValue}
           />
           <ReInvestRate
             reInvestRate={reInvestRate}
             setReInvestRate={setReInvestRate}
+            reInvestTypeValue={reInvestTypeValue}
+            setreInvestTypeValue={setreInvestTypeValue}
           />
-          {interval === 'Daily' && (
+          {/* Need to work on logic for preferred trading days */}
+          {interval === 'Daily' && false && (
             <PreferredTradingDays
               preferredTradingDays={preferredTradingDays}
               setPreferredTradingDays={setPreferredTradingDays}
             />
           )}
+
           <FormButtonGrid>
             <Grid.Col span={9}>
               <SubmitButton />

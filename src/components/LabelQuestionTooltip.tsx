@@ -20,17 +20,19 @@ export const LabelQuestionTooltip = ({
     <span style={labelStyles}>
       {label}
       {isRequired && <span className={styles.isRequired}>*</span>}
-      <Tooltip
-        label={tooltip}
-        withArrow
-        multiline
-        w={220}
-      >
-        <IconInfoSquareRounded
-          size='1.25em'
-          style={{ marginLeft: '5px' }}
-        />
-      </Tooltip>
+      {tooltip === '' ? null : (
+        <Tooltip
+          label={tooltip}
+          withArrow
+          multiline
+          w={220}
+        >
+          <IconInfoSquareRounded
+            size='1.25em'
+            style={{ marginLeft: '5px' }}
+          />
+        </Tooltip>
+      )}
     </span>
   );
 };

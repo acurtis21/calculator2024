@@ -28,6 +28,7 @@ export const InvestmentInterval = ({
         value={interval}
         onChange={setInterval}
         data={['Daily', 'Weekly', 'Monthly', 'Yearly']}
+        transitionDuration={250}
       />
     </>
   );

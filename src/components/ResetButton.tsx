@@ -9,7 +9,7 @@ export const ResetButton = ({
   return (
     <>
       <Tooltip
-        label='Refresh Form'
+        label='Reset Form'
         withArrow
         multiline
       >

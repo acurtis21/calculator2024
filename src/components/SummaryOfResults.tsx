@@ -15,6 +15,7 @@ import {
   IconMoneybag,
 } from '@tabler/icons-react';
 import classes from '../styles/SummaryOfResults.module.css';
+import CopyValueButton from './CopyValueButton';
 
 const icons = {
   net_profit: IconMoneybag,
@@ -139,31 +140,35 @@ export function SummaryOfResults({
           gap='xs'
           mt={25}
         >
-          <Text className={classes.value}>
+          <Text
+            className={classes.value}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
             <NumberFormatter
               prefix='$ '
               thousandSeparator
               value={stat.value}
             />
-          </Text>
-          <Text
-            c={'teal'}
-            fz='sm'
-            fw={500}
-            className={classes.diff}
-            style={{ display: stat.diff === 0 ? 'none' : 'initial' }}
-          >
-            <span>
-              <NumberFormatter
-                suffix=' %'
-                thousandSeparator
-                value={stat.diff}
+            <CopyValueButton value={stat.value} />
+            <Text
+              c={'teal'}
+              fz='sm'
+              fw={500}
+              className={classes.diff}
+              style={{ display: stat.diff === 0 ? 'none' : 'initial' }}
+            >
+              <span>
+                <NumberFormatter
+                  suffix=' %'
+                  thousandSeparator
+                  value={stat.diff}
+                />
+              </span>
+              <DiffIcon
+                size='1rem'
+                stroke={1.5}
               />
-            </span>
-            <DiffIcon
-              size='1rem'
-              stroke={1.5}
-            />
+            </Text>
           </Text>
         </Group>
 
